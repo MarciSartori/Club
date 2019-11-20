@@ -1,6 +1,30 @@
-const { Router } = require ('express');
+const {
+    Router
+} = require('express');
+
 const router = Router();
-const { getComercio, createComercio } = require('../controllers/index.controller');
+const {
+    createComercio,
+    getComercio,
+    createAlquiler,
+    getAlquiler,
+    createCancha,
+    getCancha,
+    createCuota,
+    getCuota,
+    createGFamiliar,
+    getGFamiliar,
+    createPaseo,
+    getPaseo,
+    createPersona,
+    getPersona,
+    createPlan,
+    getPlan,
+    createTurno,
+    getTurno,
+    createUsuario,
+    getUsuario
+} = require('../controllers/index.controller');
 
 router.get('/comercios', getComercio);
 router.post('/comercios', createComercio);
