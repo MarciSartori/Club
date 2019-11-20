@@ -28,6 +28,34 @@ const {
 
 router.get('/comercios', getComercio);
 router.post('/comercios', createComercio);
+
+router.get('/alquiler', getAlquiler);
+router.post('/alquiler', createAlquiler);
+
+router.get('/cancha', getCancha);
+router.post('/cancha', createCancha);
+
+router.get('/cuota', getCuota);
+router.post('/cuota', createCuota);
+
+router.get('/gfamiliar', getGFamiliar);
+router.post('/gfamiliar', createGFamiliar);
+
+router.get('/paseo', getPaseo);
+router.post('/paseo', createPaseo);
+
+router.get('/persona', getPersona);
+router.post('/persona', createPersona);
+
+router.get('/plan', getPlan);
+router.post('/plan', createPlan);
+
+router.get('/turno', getTurno);
+router.post('/turno', createTurno);
+
+router.get('/usuario', getUsuario);
+router.post('/usuario', createUsuario);
+
 // router.get('/users', getUser);
 
 // router.get('/users/:id', getUserById);
