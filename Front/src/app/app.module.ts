@@ -11,8 +11,13 @@ import { RegistrerComponent } from './components/user/registrer/registrer.compon
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
-
-
+import { ModalComponent } from './components/modal/modal.component';
+import { FormsModule }   from '@angular/forms';
+import { PlanesComponent } from './components/admin/planes/planes.component';
+import { ModalNuevaPersonaComponent } from './components/modal/modal-nueva-persona/modal-nueva-persona.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalPlaneComponent } from './components/modal/modal-plane/modal-plane.component';
 
 @NgModule({
   declarations: [
@@ -23,16 +28,23 @@ import { UsuariosComponent } from './components/admin/usuarios/usuarios.componen
     RegistrerComponent,
     ProfileComponent,
     HeroComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ModalComponent,
+    PlanesComponent,
+    ModalNuevaPersonaComponent,
+    ModalPlaneComponent
 
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    NgxSpinnerModule,BrowserAnimationsModule
   ],
   providers: [ServiceService],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

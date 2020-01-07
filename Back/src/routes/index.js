@@ -6,6 +6,8 @@ const router = Router();
 const {
     createComercio,
     getComercio,
+    deleteComercio,
+    updateComercio,
     createAlquiler,
     getAlquiler,
     createCancha,
@@ -18,8 +20,12 @@ const {
     getPaseo,
     createPersona,
     getPersona,
+    updatePersona,
+    deletePersona,
     createPlan,
     getPlan,
+    deletePlan,
+    updatePlan,
     createTurno,
     getTurno,
     createUsuario,
@@ -28,6 +34,9 @@ const {
 
 router.get('/comercios', getComercio);
 router.post('/comercios', createComercio);
+router.delete('/comercios/:id', deleteComercio);
+router.put('/comercios/:id', updateComercio);
+
 
 router.get('/alquiler', getAlquiler);
 router.post('/alquiler', createAlquiler);
@@ -46,9 +55,13 @@ router.post('/paseo', createPaseo);
 
 router.get('/persona', getPersona);
 router.post('/persona', createPersona);
-
+router.delete('/persona/:id', deletePersona);
+router.put('/persona/:id', updatePersona);
+ 
 router.get('/plan', getPlan);
 router.post('/plan', createPlan);
+router.delete('/plan/:id', deletePlan);
+router.put('/plan/:id', updatePlan);
 
 router.get('/turno', getTurno);
 router.post('/turno', createTurno);

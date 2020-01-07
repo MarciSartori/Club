@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from '../../services/service.service';
 import { usuariointerface } from '../../models/usuario-interface';
-
+import { Location } from '@angular/common';
+import { comerciointerface } from 'src/app/models/comercio-interface';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,25 +12,38 @@ import { usuariointerface } from '../../models/usuario-interface';
 })
 export class HomeComponent implements OnInit {
   @Input() items: any[] = [];
-  mensaje1: string;
-  resultados: any[];
-  constructor(private servicio: ServiceService) { }
-  private nombres: usuariointerface;
 
-  // this.mensaje1 = servicio.mensaje1();
-  // console.log(servicio.mensaje1());
+  comercios: any[];
+  constructor(private servicio: ServiceService, private location: Location) { }
+
   ngOnInit() {
-    this.getListaUsuarios();
+    this.getListaComercios();
   }
 
-  getListaUsuarios() {
+  getListaComercios() {
     this.servicio.obtenerTodos().subscribe((data: any) => {
-      this.resultados = data;
-      console.log(data);
+      this.comercios = data;
+      // console.log(data);
     });
   }
 
+  deleteComercio(id: string) {
+    if (confirm("Estas seguro de eliminar?")) {
+      this.servicio.eliminarComercio(id).subscribe(persona => location.reload());
+    }
+  }
 
+  preActualizarComercio(comercio: comerciointerface): void{
+    this.servicio.selectedComercio = Object.assign({}, comercio);
+  }
+
+  resetForm(comercioForm?: NgForm): void{
+    this.servicio.selectedComercio ={
+      id: null,
+      nombre: '',
+      descuento: ''
+    }
+  }
 }
 
 

@@ -19,15 +19,9 @@ const createComercio = async (req, res) => {
 
     const response = await pool.query('INSERT INTO comercio (nombre, descuento) VALUES ($1, $2)', [nombre, descuento]);
     console.log(response);
-    res.json({
-        Message: 'COMERCIO ADD CORRECTAMENTE',
-        body: {
-            comercio: {
-                nombre,
-                descuento
-            }
-        }
-    })
+    res.json(
+        `COMERCIO ${nombre.toUpperCase()} ALTA CORRECTA`
+    )
 };
 
 
@@ -37,7 +31,74 @@ const getComercio = async (req, res) => {
     res.status(200).json(response.rows);
 };
 
+
+const deleteComercio = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('DELETE FROM comercio WHERE id_comercio = $1', [id]);
+    console.log(response);
+    res.json(`Comercio ${id} dado de baja`);
+};
+
+const updateComercio = async (req, res) => {
+    const id = req.params.id;
+    const {
+        nombre
+    } = req.body;
+    const {
+        descuento
+    } = req.body;
+    const response = await pool.query('UPDATE comercio SET nombre =$1, descuento = $2 WHERE id_comercio = $3', [nombre, descuento, id]);
+    console.log(response);
+    res.json(`${nombre} se ha actualizado`);
+};
+
 // COMERCIOS //
+
+
+// PLAN //
+const createPlan = async (req, res) => {
+    const {
+        nombre,
+        descripcion,
+        costo
+    } = req.body;
+
+    const response = await pool.query('INSERT INTO plan (nombre, descripcion, costo) VALUES ($1, $2, $3)', [nombre, descripcion, costo]);
+    console.log(response);
+    res.json(
+        `PLAN ${nombre.toUpperCase()} ALTA CORRECTA`
+    )
+};
+
+const getPlan = async (req, res) => {
+    const response = await pool.query('SELECT * FROM plan');
+    console.log(response.rows);
+    res.status(200).json(response.rows);
+};
+
+const deletePlan = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('DELETE FROM plan WHERE id_plan = $1', [id]);
+    console.log(response);
+    res.json(`Plan ${id} dado de baja`);
+};
+
+const updatePlan = async (req, res) => {
+    const id = req.params.id;
+    const {
+        nombre
+    } = req.body;
+    const {
+        descripcion
+    } = req.body;
+    const {
+        costo
+    } = req.body;
+    const response = await pool.query('UPDATE plan SET nombre =$1, descripcion = $2, costo = $3 WHERE id_plan = $4', [nombre, descripcion, costo, id]);
+    console.log(response);
+    res.json(`Plan ${nombre} se ha actualizado`);
+};
+// PLAN //
 
 
 // USUARIO //
@@ -98,35 +159,7 @@ const getTurno = async (req, res) => {
 // TURNO //
 
 
-// PLAN //
-const createPlan = async (req, res) => {
-    const {
-        nombre,
-        descripcion,
-        costo
-    } = req.body;
 
-    const response = await pool.query('INSERT INTO plan (nombre, descripcion, costo) VALUES ($1, $2, $3)', [nombre, descripcion, costo]);
-    console.log(response);
-    res.json({
-        Message: 'PLAN ADD CORRECTAMENTE',
-        body: {
-            comercio: {
-                nombre,
-                descripcion,
-                costo
-            }
-        }
-    })
-};
-
-
-const getPlan = async (req, res) => {
-    const response = await pool.query('SELECT * FROM plan');
-    console.log(response.rows);
-    res.status(200).json(response.rows);
-};
-// PLAN //
 
 
 
@@ -135,21 +168,15 @@ const createPersona = async (req, res) => {
     const {
         nombre,
         apellido,
-        dni
+        dni,
+        id_gfamiliar
     } = req.body;
 
-    const response = await pool.query('INSERT INTO persona (nombre, apellido, dni) VALUES ($1, $2, $3)', [nombre, apellido, dni]);
+    const response = await pool.query('INSERT INTO persona (nombre, apellido, dni, id_gfamiliar) VALUES ($1, $2, $3, $4)', [nombre, apellido, dni, id_gfamiliar]);
     console.log(response);
-    res.json({
-        Message: 'PERSONA ADD CORRECTAMENTE',
-        body: {
-            comercio: {
-                nombre,
-                apellido,
-                dni
-            }
-        }
-    })
+    res.json(
+        `${nombre.toUpperCase()} ${apellido.toUpperCase()} ALTA CORRECTA`
+    )
 };
 
 
@@ -157,6 +184,33 @@ const getPersona = async (req, res) => {
     const response = await pool.query('SELECT * FROM persona');
     console.log(response.rows);
     res.status(200).json(response.rows);
+};
+
+
+const deletePersona = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('DELETE FROM persona WHERE id_persona = $1', [id]);
+    console.log(response);
+    res.json(`Persona ${id} dada de baja`);
+};
+
+const updatePersona = async (req, res) => {
+    const id = req.params.id;
+    const {
+        nombre
+    } = req.body;
+    const {
+        apellido
+    } = req.body;
+    const {
+        dni
+    } = req.body;
+    const {
+        id_gfamiliar
+    } = req.body;
+    const response = await pool.query('UPDATE persona SET nombre =$1, apellido = $2, dni = $3, id_gfamiliar = $4 WHERE id_persona = $5', [nombre, apellido, dni, id_gfamiliar, id]);
+    console.log(response);
+    res.json(`${nombre} ${apellido} se ha actualizado`);
 };
 // PERSONA //
 
@@ -232,7 +286,7 @@ const createCuota = async (req, res) => {
         Message: 'CUOTA ADD CORRECTAMENTE',
         body: {
             comercio: {
-                numeroCuota, 
+                numeroCuota,
                 fecha,
                 vencimiento
             }
@@ -261,7 +315,7 @@ const createCancha = async (req, res) => {
         Message: 'CANCHA ADD CORRECTAMENTE',
         body: {
             comercio: {
-nombre
+                nombre
             }
         }
     })
@@ -356,6 +410,8 @@ module.exports = {
     // updateUser
     createComercio,
     getComercio,
+    deleteComercio,
+    updateComercio,
     createAlquiler,
     getAlquiler,
     createCancha,
@@ -368,8 +424,12 @@ module.exports = {
     getPaseo,
     createPersona,
     getPersona,
+    deletePersona,
+    updatePersona,
     createPlan,
     getPlan,
+    deletePlan,
+    updatePlan,
     createTurno,
     getTurno,
     createUsuario,
